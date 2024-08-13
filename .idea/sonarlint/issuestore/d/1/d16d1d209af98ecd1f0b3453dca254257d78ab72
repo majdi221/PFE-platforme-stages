@@ -1,0 +1,22 @@
+
+b	java:S112D"FDefine and throw a dedicated exception instead of using a generic one.(ïÔœ¥8óÉğ”2
+b	java:S112:"FDefine and throw a dedicated exception instead of using a generic one.(¥™»ø8óÉğ”2
+{
+java:S2293/"YReplace the type specification in this constructor call with the diamond operator ("<>").(”½Øîùÿÿÿÿ8óÉğ”2
+…
+java:S14884"cImmediately return this expression instead of assigning it to the temporary variable "newEtudiant".(Ó Â£ÿÿÿÿÿ8ôÉğ”2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÿÉğ”2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÿÉğ”2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÿÉğ”2
+_
+java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÿÉğ”2
+_
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÿÉğ”2
+C
+java:S1452)"&Remove usage of generic wildcard type.(ÍÌ¬8‚Êğ”2
+j	java:S100:"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥™»ø8ƒÊğ”2
+C
+java:S1452:"&Remove usage of generic wildcard type.(¥™»ø8ƒÊğ”2

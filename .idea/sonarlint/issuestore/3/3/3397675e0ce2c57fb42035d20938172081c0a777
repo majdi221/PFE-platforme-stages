@@ -1,0 +1,17 @@
+
+n	java:S101
+"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(üšÓ³üÿÿÿÿ8ÒŸïƒ’2
+N
+java:S1068",Remove this unused "password" private field.(œãë­úÿÿÿÿ8×Ÿïƒ’2
+N
+java:S1068",Remove this unused "nivEtude" private field.(­Şöøÿÿÿÿ8×Ÿïƒ’2
+P
+java:S1068".Remove this unused "specialite" private field.(Ó“µğúÿÿÿÿ8×Ÿïƒ’2
+H
+java:S1068"&Remove this unused "cv" private field.(òğÃßüÿÿÿÿ8×Ÿïƒ’2
+G
+java:S1068"*Remove this unused "stages" private field.(ğçêä8×Ÿïƒ’2
+O
+java:S1068"2Remove this unused "encadrantProId" private field.(İš× 8×Ÿïƒ’2
+V
+java:S1068"9Remove this unused "encadrantAcademiqueId" private field.(•…™‹8×Ÿïƒ’2
