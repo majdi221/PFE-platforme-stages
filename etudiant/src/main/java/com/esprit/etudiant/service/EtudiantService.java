@@ -9,5 +9,6 @@ public interface EtudiantService {
     // CRUD
     public Etudiant save(Etudiant e);
     public Etudiant findEtudiantById(String id);
+    public boolean updatePassword(String idEtudiant, String oldPassword, String newPassword);
 
 }

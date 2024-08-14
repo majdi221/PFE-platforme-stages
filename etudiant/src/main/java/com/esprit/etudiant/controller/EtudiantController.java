@@ -12,10 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/etudiant")
@@ -49,8 +52,8 @@ public class EtudiantController {
     }
     @GetMapping("/{id}")
     public Etudiant getEtudiant(@PathVariable String id){
-        Etudiant newEtudiant = etudiantService.findEtudiantById(id);
-        return newEtudiant;
+        Etudiant etudiant = etudiantService.findEtudiantById(id);
+        return etudiant;
 
     }
 
@@ -73,6 +76,26 @@ public class EtudiantController {
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
         return new ResponseEntity<>(jwt, HttpStatus.OK);
+    }
+
+    @PostMapping("/update-password")
+    public ResponseEntity<?> updatePassword(
+            @RequestBody Map<String, String> passwordRequest,
+            Authentication authentication) {
+
+        User userDetails = (User) authentication.getPrincipal();
+        String idEtudiant = userDetails.getUsername();
+
+        String oldPassword = passwordRequest.get("oldPassword");
+        String newPassword = passwordRequest.get("newPassword");
+
+        boolean success = etudiantService.updatePassword(idEtudiant, oldPassword, newPassword);
+
+        if (success) {
+            return ResponseEntity.ok("Password updated successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Old password is incorrect.");
+        }
     }
 
 }

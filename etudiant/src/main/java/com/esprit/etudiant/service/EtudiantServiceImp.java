@@ -5,6 +5,7 @@ import com.esprit.etudiant.repository.EtudiantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EtudiantServiceImp implements EtudiantService{
@@ -21,5 +22,21 @@ public class EtudiantServiceImp implements EtudiantService{
     @Override
     public Etudiant findEtudiantById(String id) {
         return EtudiantRepo.findEtudiantByidEtudiant(id);
+    }
+
+    @Transactional
+    public boolean updatePassword(String idEtudiant, String oldPassword, String newPassword) {
+        Etudiant etudiant = EtudiantRepo.findByIdEtudiant(idEtudiant)
+                .orElseThrow(() -> new RuntimeException("Etudiant not found"));
+
+        // Check if the old password matches the current password
+        if (passwordEncoder.matches(oldPassword, etudiant.getPassword())) {
+            // Encode and set the new password
+            etudiant.setPassword(passwordEncoder.encode(newPassword));
+            EtudiantRepo.save(etudiant);
+            return true;
+        } else {
+            return false; // Old password does not match
+        }
     }
 }

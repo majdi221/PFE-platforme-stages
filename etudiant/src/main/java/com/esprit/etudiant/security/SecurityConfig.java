@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())  // Disable CSRF protection
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/etudiant/*").permitAll()  // Allow access to authentication endpoint
+                        .requestMatchers("/api/etudiant/update-password").authenticated()
                         .anyRequest().authenticated()  // All other requests need to be authenticated
                 )
                 .sessionManagement(session -> session
