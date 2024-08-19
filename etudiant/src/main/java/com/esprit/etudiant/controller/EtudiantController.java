@@ -6,6 +6,7 @@ import com.esprit.etudiant.security.JwtUtil;
 import com.esprit.etudiant.service.EtudiantDetailsService;
 import com.esprit.etudiant.service.EtudiantService;
 import com.esprit.etudiant.service.MapValidationErrorService;
+import com.esprit.etudiant.service.PasswordResetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,6 +40,9 @@ public class EtudiantController {
 
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
+
+    @Autowired
+    private PasswordResetService passwordResetService;
 
 
     @PostMapping("/save")
@@ -96,6 +101,28 @@ public class EtudiantController {
         } else {
             return ResponseEntity.badRequest().body("Old password is incorrect.");
         }
+    }
+
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Etudiant>> getAllEtudiants() {
+        List<Etudiant> etudiants = etudiantService.getAllEtudiants();
+        return ResponseEntity.ok(etudiants);
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        passwordResetService.initiatePasswordReset(email);
+        return ResponseEntity.ok("Password reset link has been sent to your email.");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> request) {
+        String token = request.get("token");
+        String newPassword = request.get("newPassword");
+        passwordResetService.resetPassword(token, newPassword);
+        return ResponseEntity.ok("Password has been reset successfully.");
     }
 
 }

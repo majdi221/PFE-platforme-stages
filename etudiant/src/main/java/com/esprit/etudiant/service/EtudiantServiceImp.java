@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class EtudiantServiceImp implements EtudiantService{
     @Autowired
@@ -38,5 +40,10 @@ public class EtudiantServiceImp implements EtudiantService{
         } else {
             return false; // Old password does not match
         }
+    }
+
+    @Override
+    public List<Etudiant> getAllEtudiants() {
+        return EtudiantRepo.findAll();
     }
 }
