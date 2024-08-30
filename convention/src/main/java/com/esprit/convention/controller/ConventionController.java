@@ -1,16 +1,15 @@
 package com.esprit.convention.controller;
 
 import com.esprit.convention.model.Convention;
+import com.esprit.convention.model.ConventionDecision;
+import com.esprit.convention.model.ConventionStatus;
 import com.esprit.convention.service.ConventionService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.util.List;
 
 @RestController
@@ -19,6 +18,12 @@ public class ConventionController {
 
     @Autowired
     private ConventionService conventionService;
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @GetMapping
     public List<Convention> getAllConventions() {
@@ -32,7 +37,7 @@ public class ConventionController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{id}/pdf")
+    /*@GetMapping("/{id}/pdf")
     public ResponseEntity<FileSystemResource> getConventionPdf(@PathVariable String id) {
         File pdfFile = conventionService.generateConventionPdf(id);
         FileSystemResource resource = new FileSystemResource(pdfFile);
@@ -46,7 +51,7 @@ public class ConventionController {
                 .contentLength(pdfFile.length())
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
-    }
+    }*/
 
     @PostMapping
     public Convention createConvention(@RequestBody Convention convention) {
@@ -79,5 +84,17 @@ public class ConventionController {
                     return ResponseEntity.ok().build();
                 })
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/review/{id}")
+    public ResponseEntity<String> reviewConvention(@PathVariable String id, @RequestParam ConventionStatus status) {
+        try {
+            ConventionDecision decision = new ConventionDecision(id, status);
+            String decisionJson = objectMapper.writeValueAsString(decision);
+            jmsTemplate.convertAndSend("reviewQueue", decisionJson);
+            return ResponseEntity.ok("Convention reviewed successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Failed to process convention review");
+        }
     }
 }

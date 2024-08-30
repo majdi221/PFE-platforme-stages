@@ -1,15 +1,19 @@
 package com.esprit.etudiant.controller;
 
 import com.esprit.etudiant.model.AuthenticationRequest;
+import com.esprit.etudiant.model.Convention;
 import com.esprit.etudiant.model.Etudiant;
 import com.esprit.etudiant.security.JwtUtil;
 import com.esprit.etudiant.service.EtudiantDetailsService;
 import com.esprit.etudiant.service.EtudiantService;
 import com.esprit.etudiant.service.MapValidationErrorService;
 import com.esprit.etudiant.service.PasswordResetService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,6 +47,9 @@ public class EtudiantController {
 
     @Autowired
     private PasswordResetService passwordResetService;
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
 
 
     @PostMapping("/save")
@@ -123,6 +130,16 @@ public class EtudiantController {
         String newPassword = request.get("newPassword");
         passwordResetService.resetPassword(token, newPassword);
         return ResponseEntity.ok("Password has been reset successfully.");
+    }
+
+
+    @PostMapping("/apply")
+    public ResponseEntity<String> applyForConvention(@RequestBody Convention convention) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String conventionJson = objectMapper.writeValueAsString(convention);
+        jmsTemplate.convertAndSend("conventionQueue", conventionJson);
+        return ResponseEntity.ok("Convention application sent successfully");
     }
 
 }

@@ -1,4 +1,4 @@
-package com.esprit.convention.model;
+package com.esprit.etudiant.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -57,10 +57,55 @@ public class Convention implements Serializable {
     @Column(name = "pdf_document")
     private byte[] pdfDocument;
 
-    //private Etudiant etudiant
-
     // getters and setters
 
+    public String getOid() {
+        return oid;
+    }
+
+    public String getSociete() {
+        return societe;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getRepresentePar() {
+        return representePar;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNomPrenomEtudiant() {
+        return nomPrenomEtudiant;
+    }
+
+    public String getOption() {
+        return option;
+    }
+
+    public String getDiplome() {
+        return diplome;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public ConventionStatus getStatus() {
+        return status;
+    }
+
+    public byte[] getPdfDocument() {
+        return pdfDocument;
+    }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
@@ -110,3 +155,5 @@ public class Convention implements Serializable {
         this.status = status;
     }
 }
+
+

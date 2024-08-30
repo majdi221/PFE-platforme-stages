@@ -18,10 +18,7 @@ public class Etudiant {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false, nullable = false)
     private String oid;
 
@@ -51,11 +48,7 @@ public class Etudiant {
     private String cv;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(
-            name = "etudiant_stage",
-            joinColumns = @JoinColumn(name = "idEtudiant"),
-            inverseJoinColumns = @JoinColumn(name = "idStage")
-    )
+    @JoinTable(name = "etudiant_stage", joinColumns = @JoinColumn(name = "idEtudiant"), inverseJoinColumns = @JoinColumn(name = "idStage"))
     private List<Stage> stages = new ArrayList<>();
     private String encadrantProId;
     private String encadrantAcademiqueId;

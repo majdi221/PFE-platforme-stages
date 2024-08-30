@@ -20,6 +20,6 @@ public interface ConventionService {
 
     public Convention getConventionById(String id);
 
-    public File generateConventionPdf(String id);
+    //public File generateConventionPdf(String id);
 
 }
