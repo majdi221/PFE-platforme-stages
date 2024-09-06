@@ -155,8 +155,6 @@ public class ConventionServiceImp implements ConventionService {
                 document.add(p5);
 
                 // Student Information
-                //addSectionTitle(document, "Étudiant(e)");
-
                 PdfPTable studentTable = new PdfPTable(2);
                 studentTable.setWidthPercentage(100);
                 studentTable.setWidths(new float[]{1, 2});
@@ -179,7 +177,7 @@ public class ConventionServiceImp implements ConventionService {
 
                 document.add(Chunk.NEWLINE); // Empty line
 
-                // Adding articles and clauses as in the template
+                // Adding articles and clauses
                 addArticle(document, "ARTICLE 1 : Objet de la Convention", "La présente convention règle les rapports entre ESPRIT, l’Entreprise et l’Étudiant pour ce qui concerne le Projet de Fin d’Études (ci-après désigné par « PFE ») que l’Étudiant est appelé à effectuer au sein de l’Entreprise.");
 
                 addArticle(document, "ARTICLE 2 : Objet du PFE", "Le PFE a pour objet essentiel l'application pratique de l'enseignement dispensé à ESPRIT, il s'effectue sous la direction d'un Encadrant Technique de l'Entreprise et d'un Encadrant Pédagogique d’ESPRIT.");
