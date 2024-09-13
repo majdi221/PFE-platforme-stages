@@ -9,6 +9,8 @@
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
         <option value="$PROJECT_DIR$/etudiant/pom.xml" />
         <option value="$PROJECT_DIR$/convention/pom.xml" />
+        <option value="$PROJECT_DIR$/encadrant-academique/pom.xml" />
+        <option value="$PROJECT_DIR$/encadrant-professionnel/pom.xml" />
       </list>
     </option>
   </component>

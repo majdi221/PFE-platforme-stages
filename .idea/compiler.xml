@@ -9,8 +9,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="convention" />
         <module name="config-server" />
-        <module name="gateway" />
         <module name="discovery" />
+        <module name="encadrant-academique" />
+        <module name="encadrant-professionnel" />
+        <module name="gateway" />
         <module name="etudiant" />
       </profile>
     </annotationProcessing>
@@ -20,6 +22,8 @@
       <module name="config-server" options="-parameters" />
       <module name="convention" options="-parameters" />
       <module name="discovery" options="-parameters" />
+      <module name="encadrant-academique" options="-parameters" />
+      <module name="encadrant-professionnel" options="-parameters" />
       <module name="etudiant" options="-parameters" />
       <module name="gateway" options="-parameters" />
     </option>
